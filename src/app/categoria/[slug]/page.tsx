@@ -9,22 +9,19 @@ import Link from "next/link"
 import { categoryData } from "@/data/mock"
 import { notFound } from "next/navigation"
 
-interface PageProps {
-  params: {
-    slug: string
-  }
-  searchParams?: { [key: string]: string | string[] | undefined }
+type Props = {
+  params: { slug: string }
+  searchParams: { [key: string]: string | string[] | undefined }
 }
 
-export default async function Page({ params, searchParams }: PageProps) {
-  const { slug } = params;
+// Simula um carregamento assíncrono dos dados
+async function getCategoryData(slug: string) {
+  // Em produção, aqui você faria uma chamada à API ou banco de dados
+  return categoryData[slug as keyof typeof categoryData]
+}
 
-  // Simula um carregamento assíncrono dos dados
-  const getCategoryData = async (slug: string) => {
-    // Em produção, aqui você faria uma chamada à API ou banco de dados
-    return categoryData[slug as keyof typeof categoryData]
-  }
-
+export default async function Page({ params, searchParams }: Props) {
+  const { slug } = params
   const category = await getCategoryData(slug)
 
   if (!category) {
@@ -172,7 +169,6 @@ export default async function Page({ params, searchParams }: PageProps) {
 
 // Gera as páginas estaticamente no momento da build
 export async function generateStaticParams() {
-  // Em produção, você buscaria isso de uma API ou banco de dados
   const slugs = Object.keys(categoryData)
   return slugs.map((slug) => ({
     slug,
