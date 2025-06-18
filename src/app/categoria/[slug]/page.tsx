@@ -1,4 +1,4 @@
-// @ts-nocheck
+"use client"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -9,20 +9,15 @@ import Link from "next/link"
 import { categoryData } from "@/data/mock"
 import { notFound } from "next/navigation"
 
-type Props = {
+interface PageProps {
   params: { slug: string }
   searchParams: { [key: string]: string | string[] | undefined }
 }
 
-// Simula um carregamento assíncrono dos dados
-async function getCategoryData(slug: string) {
-  // Em produção, aqui você faria uma chamada à API ou banco de dados
-  return categoryData[slug as keyof typeof categoryData]
-}
-
-export default async function Page({ params, searchParams }: Props) {
+async function Page({ params, searchParams }: PageProps) {
   const { slug } = params
-  const category = await getCategoryData(slug)
+
+  const category = await Promise.resolve(categoryData[slug as keyof typeof categoryData])
 
   if (!category) {
     notFound()
@@ -166,6 +161,8 @@ export default async function Page({ params, searchParams }: Props) {
     </div>
   )
 }
+
+export default Page
 
 // Gera as páginas estaticamente no momento da build
 export async function generateStaticParams() {
