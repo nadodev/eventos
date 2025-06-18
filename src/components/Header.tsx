@@ -1,0 +1,152 @@
+"use client"
+
+import { Button } from "@/components/ui/button"
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu"
+import { Search, Menu, X } from "lucide-react"
+import { Input } from "@/components/ui/input"
+import Link from "next/link"
+import { useState } from "react"
+
+export function Header() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
+  return (
+    <header className="border-b bg-white sticky top-0 z-50">
+      <div className="container mx-auto px-4 py-4">
+        <div className="flex items-center justify-between">
+          {/* Logo */}
+          <div className="flex items-center space-x-4">
+            <Link href="/" className="text-2xl font-bold text-primary hover:text-primary/80 transition-colors">
+              🎓 EventosUni
+            </Link>
+          </div>
+
+          {/* Desktop Navigation Menu */}
+          <NavigationMenu className="hidden md:flex">
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <Link href="/" legacyBehavior passHref>
+                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    Início
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <Link href="/sobre" legacyBehavior passHref>
+                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    Sobre
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <Link href="/como-funciona" legacyBehavior passHref>
+                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    Como Funciona
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <Link href="/precos" legacyBehavior passHref>
+                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    Preços
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <Link href="/contato" legacyBehavior passHref>
+                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    Contato
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
+
+          {/* Desktop Search and Auth */}
+          <div className="hidden md:flex items-center space-x-4">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+              <Input
+                placeholder="Buscar eventos..."
+                className="pl-10 w-64"
+              />
+            </div>
+            <Button variant="outline" size="sm">Buscar</Button>
+            <Link href="/login">
+              <Button variant="ghost" size="sm">Entrar</Button>
+            </Link>
+            <Link href="/registro">
+              <Button size="sm">Registrar</Button>
+            </Link>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? (
+              <X className="h-6 w-6" />
+            ) : (
+              <Menu className="h-6 w-6" />
+            )}
+          </button>
+        </div>
+
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden mt-4 pb-4 border-t pt-4">
+            <div className="space-y-4">
+              {/* Mobile Search */}
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                <Input
+                  placeholder="Buscar eventos..."
+                  className="pl-10"
+                />
+              </div>
+              <Button variant="outline" size="sm" className="w-full">Buscar</Button>
+              
+              {/* Mobile Navigation */}
+              <nav className="space-y-2">
+                <Link href="/" className="block py-2 text-sm hover:text-primary transition-colors">
+                  Início
+                </Link>
+                <Link href="/sobre" className="block py-2 text-sm hover:text-primary transition-colors">
+                  Sobre
+                </Link>
+                <Link href="/como-funciona" className="block py-2 text-sm hover:text-primary transition-colors">
+                  Como Funciona
+                </Link>
+                <Link href="/precos" className="block py-2 text-sm hover:text-primary transition-colors">
+                  Preços
+                </Link>
+                <Link href="/contato" className="block py-2 text-sm hover:text-primary transition-colors">
+                  Contato
+                </Link>
+              </nav>
+
+              {/* Mobile Auth Buttons */}
+              <div className="space-y-2 pt-4 border-t">
+                <Link href="/login" className="block">
+                  <Button variant="ghost" size="sm" className="w-full">Entrar</Button>
+                </Link>
+                <Link href="/registro" className="block">
+                  <Button size="sm" className="w-full">Registrar</Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </header>
+  )
+} 
