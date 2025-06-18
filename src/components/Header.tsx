@@ -10,7 +10,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
-import { Search, Menu, X } from "lucide-react"
+import { Search, Menu, X, Settings } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import Link from "next/link"
 import { useState } from "react"
@@ -81,6 +81,28 @@ export function Header() {
             </NavigationMenuList>
           </NavigationMenu>
 
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-6">
+            <Link href="/" className="text-foreground hover:text-primary transition-colors">
+              Início
+            </Link>
+            <Link href="/eventos" className="text-foreground hover:text-primary transition-colors">
+              Eventos
+            </Link>
+            <Link href="/categorias" className="text-foreground hover:text-primary transition-colors">
+              Categorias
+            </Link>
+            <Link href="/precos" className="text-foreground hover:text-primary transition-colors">
+              Preços
+            </Link>
+            <Link href="/como-funciona" className="text-foreground hover:text-primary transition-colors">
+              Como Funciona
+            </Link>
+            <Link href="/sobre" className="text-foreground hover:text-primary transition-colors">
+              Sobre
+            </Link>
+          </div>
+
           {/* Desktop Search and Auth */}
           <div className="hidden md:flex items-center space-x-4">
             <form onSubmit={handleSearch} className="relative">
@@ -94,6 +116,12 @@ export function Header() {
             </form>
             <Button variant="outline" size="sm" onClick={handleSearch}>Buscar</Button>
             <ThemeToggle />
+            <Link href="/dashboard">
+              <Button variant="outline" size="sm">
+                <Settings className="w-4 h-4 mr-2" />
+                Dashboard
+              </Button>
+            </Link>
             <Link href="/login">
               <Button variant="ghost" size="sm">Entrar</Button>
             </Link>
@@ -154,6 +182,12 @@ export function Header() {
 
               {/* Mobile Auth Buttons */}
               <div className="space-y-2 pt-4 border-t">
+                <Link href="/dashboard" className="block">
+                  <Button variant="outline" size="sm" className="w-full">
+                    <Settings className="w-4 h-4 mr-2" />
+                    Dashboard
+                  </Button>
+                </Link>
                 <Link href="/login" className="block">
                   <Button variant="ghost" size="sm" className="w-full">Entrar</Button>
                 </Link>
