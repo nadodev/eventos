@@ -88,36 +88,17 @@ export function Header() {
 
 
           {/* Desktop Search and Auth */}
-          <div className="hidden md:flex items-center space-x-4">
-            <form onSubmit={handleSearch} className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-              <Input
-                placeholder="Buscar eventos..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 w-64"
-              />
-            </form>
-            <Button variant="outline" size="sm" onClick={handleSearch}>Buscar</Button>
-            <ThemeToggle />
-            <Link href="/dashboard">
-              <Button variant="outline" size="sm">
-                <Settings className="w-4 h-4 mr-2" />
-                Dashboard
-              </Button>
-            </Link>
-            <Link href="/perfil">
-              <Button variant="outline" size="sm">
-                <User className="w-4 h-4 mr-2" />
-                Perfil
-              </Button>
-            </Link>
-            <Link href="/login">
-              <Button variant="ghost" size="sm">Entrar</Button>
-            </Link>
-            <Link href="/registro">
-              <Button size="sm">Registrar</Button>
-            </Link>
+          <div className="flex items-center space-x-2">
+            <Button>
+              <Link href="/login">
+                Entrar
+              </Link>
+            </Button>
+            <Button variant="outline">
+              <Link href="/registro">
+                Painel
+              </Link>
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -150,7 +131,7 @@ export function Header() {
                 />
               </form>
               <Button variant="outline" size="sm" className="w-full" onClick={handleSearch}>Buscar</Button>
-              
+
               {/* Mobile Navigation */}
               <nav className="space-y-2">
                 <Link href="/" className="block py-2 text-sm hover:text-primary transition-colors">

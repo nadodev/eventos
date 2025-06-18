@@ -1,87 +1,171 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import { Input } from "@/components/ui/input"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { Search } from "lucide-react"
+import { useSearch } from "@/contexts/SearchContext"
+import { useRouter } from "next/navigation"
 
 export function Hero() {
-  return (
-    <section className="py-20 bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Text Content */}
-          <div className="space-y-6">
-            <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white leading-tight">
-              Organize seu evento universitário com{" "}
-              <span className="text-blue-600 dark:text-blue-400">facilidade</span>
-            </h1>
-            <p className="text-xl text-muted-foreground leading-relaxed">
-              Simplifique a organização de eventos acadêmicos. Desde formaturas até festas, 
-              nossa plataforma oferece todas as ferramentas que você precisa para criar 
-              eventos incríveis sem dor de cabeça.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/registro">
-                <Button size="lg" className="text-lg px-8 py-6">
-                  Criar evento grátis
-                </Button>
-              </Link>
-              <Link href="/como-funciona">
-                <Button size="lg" variant="outline" className="text-lg px-8 py-6">
-                  Ver como funciona
-                </Button>
-              </Link>
-            </div>
-            <div className="flex items-center space-x-6 text-sm text-muted-foreground">
-              <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                <span>100% gratuito</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                <span>Sem cartão de crédito</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                <span>Setup em 5 minutos</span>
-              </div>
-            </div>
-          </div>
+  const router = useRouter()
+  const {
+    searchTerm,
+    setSearchTerm,
+    category,
+    setCategory,
+    period,
+    setPeriod,
+    state,
+    setState,
+    eventType,
+    setEventType,
+  } = useSearch()
 
-          {/* Image/Illustration */}
-          <div className="relative">
-            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 transform rotate-3 hover:rotate-0 transition-transform duration-300">
-              <div className="space-y-4">
-                <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
-                    <span className="text-2xl">🎓</span>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold dark:text-white">Formatura 2024</h3>
-                    <p className="text-sm text-muted-foreground">Engenharia de Software</p>
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg">
-                    <p className="text-sm font-medium text-green-700 dark:text-green-400">150 inscritos</p>
-                  </div>
-                  <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg">
-                    <p className="text-sm font-medium text-blue-700 dark:text-blue-400">R$ 15.000 arrecadados</p>
-                  </div>
-                </div>
-                <div className="flex space-x-2">
-                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                  <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                  <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                </div>
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault()
+    const searchParams = new URLSearchParams()
+    
+    if (searchTerm) searchParams.set("q", searchTerm)
+    if (category) searchParams.set("category", category)
+    if (period) searchParams.set("period", period)
+    if (state) searchParams.set("state", state)
+    if (eventType) searchParams.set("type", eventType)
+
+    router.push(`/eventos?${searchParams.toString()}`)
+  }
+
+  return (
+    <section className="py-20 bg-gradient-to-br from-gray-500 to-gray-600 dark:from-gray-900 dark:to-zinc-800">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-12">
+          <h1 className="text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+            Encontre os principais eventos
+          </h1>
+          <p className="text-xl text-white/80 leading-relaxed max-w-3xl mx-auto">
+            Descubra os melhores eventos universitários em um só lugar. 
+            Desde formaturas até festas, encontre o evento perfeito para você.
+          </p>
+        </div>
+
+        {/* Search and Filters */}
+        <div className="max-w-6xl mx-auto">
+          <form onSubmit={handleSearch} className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm rounded-3xl p-8 shadow-2xl">
+            <div className="space-y-6">
+              {/* Search Input */}
+              <div className="relative">
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5" />
+                <Input 
+                  type="text" 
+                  placeholder="Pesquisar eventos" 
+                  className="pl-12 h-14 text-lg rounded-2xl border-2 focus-visible:ring-2 focus-visible:ring-offset-2"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+              </div>
+
+              {/* Filters */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <Select value={category} onValueChange={setCategory}>
+                  <SelectTrigger className="h-12 rounded-xl">
+                    <SelectValue placeholder="Categoria" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="formatura">Formatura</SelectItem>
+                    <SelectItem value="festa">Festa</SelectItem>
+                    <SelectItem value="workshop">Workshop</SelectItem>
+                    <SelectItem value="palestra">Palestra</SelectItem>
+                    <SelectItem value="seminario">Seminário</SelectItem>
+                  </SelectContent>
+                </Select>
+
+                <Select value={period} onValueChange={setPeriod}>
+                  <SelectTrigger className="h-12 rounded-xl">
+                    <SelectValue placeholder="Período" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="hoje">Hoje</SelectItem>
+                    <SelectItem value="amanha">Amanhã</SelectItem>
+                    <SelectItem value="semana">Esta semana</SelectItem>
+                    <SelectItem value="mes">Este mês</SelectItem>
+                    <SelectItem value="todos">Todos</SelectItem>
+                  </SelectContent>
+                </Select>
+
+                <Select value={state} onValueChange={setState}>
+                  <SelectTrigger className="h-12 rounded-xl">
+                    <SelectValue placeholder="Estado" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="sp">São Paulo</SelectItem>
+                    <SelectItem value="rj">Rio de Janeiro</SelectItem>
+                    <SelectItem value="mg">Minas Gerais</SelectItem>
+                    <SelectItem value="rs">Rio Grande do Sul</SelectItem>
+                    <SelectItem value="pr">Paraná</SelectItem>
+                  </SelectContent>
+                </Select>
+
+                <Select value={eventType} onValueChange={setEventType}>
+                  <SelectTrigger className="h-12 rounded-xl">
+                    <SelectValue placeholder="Tipo de Evento" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="presencial">Presencial</SelectItem>
+                    <SelectItem value="online">Online</SelectItem>
+                    <SelectItem value="hibrido">Híbrido</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Search Button */}
+              <div className="flex justify-center">
+                <Button 
+                  type="submit"
+                  size="lg" 
+                  className="w-full sm:w-auto px-8 py-6 text-lg bg-gray-600 hover:bg-gray-700 text-white"
+                >
+                  Buscar Eventos
+                </Button>
               </div>
             </div>
-            
-            {/* Floating elements */}
-            <div className="absolute -top-4 -right-4 bg-yellow-100 dark:bg-yellow-900/20 p-4 rounded-full">
-              <span className="text-2xl">🎉</span>
-            </div>
-            <div className="absolute -bottom-4 -left-4 bg-purple-100 dark:bg-purple-900/20 p-4 rounded-full">
-              <span className="text-2xl">📅</span>
-            </div>
+          </form>
+        </div>
+
+        {/* Features */}
+        <div className="mt-12 flex justify-center items-center space-x-6 text-sm text-white/80">
+          <div className="flex items-center space-x-2">
+            <div className="w-2 h-2 bg-white rounded-full"></div>
+            <span>100% gratuito</span>
           </div>
+          <div className="flex items-center space-x-2">
+            <div className="w-2 h-2 bg-white rounded-full"></div>
+            <span>Sem cartão de crédito</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <div className="w-2 h-2 bg-white rounded-full"></div>
+            <span>Setup em 5 minutos</span>
+          </div>
+        </div>
+
+        {/* CTA Buttons */}
+        <div className="mt-12 flex justify-center gap-4">
+          <Link href="/registro">
+            <Button size="lg" variant="secondary" className="text-lg px-8 py-6">
+              Criar evento grátis
+            </Button>
+          </Link>
+          <Link href="/como-funciona">
+            <Button size="lg" variant="outline" className="text-lg px-8 py-6 bg-transparent border-white text-white hover:bg-white/10">
+              Ver como funciona
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
