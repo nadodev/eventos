@@ -1,4 +1,3 @@
-'use client'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -6,16 +5,17 @@ import { Input } from "@/components/ui/input"
 import { Search, Filter, Calendar, MapPin, Users, ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import { categoryData } from "@/data/mock"
-import type { Metadata } from 'next'
 
-type PageParams = {
-  params: { slug: string }
-  searchParams?: { [key: string]: string | string[] | undefined }
+interface PageProps {
+  params: {
+    slug: string;
+  };
 }
 
-export default function CategoryPage({ params }: PageParams) {
+export default function Page({ params }: PageProps) {
+  const { slug } = params;
 
-  const category = categoryData[params.slug as keyof typeof categoryData]
+  const category = categoryData[slug as keyof typeof categoryData]
 
   if (!category) {
     return (
