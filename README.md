@@ -1,57 +1,72 @@
-# 🎓 EventosUni
+# 🎓 EventosUni - Plataforma de Eventos Universitários
 
-Uma plataforma moderna para organização de eventos universitários, construída com Next.js 15, TypeScript, Tailwind CSS e shadcn/ui.
+Uma plataforma completa para organização e participação em eventos universitários, construída com Next.js 14, TypeScript, Tailwind CSS e shadcn/ui.
 
 ## ✨ Funcionalidades
 
-- **Landing Page Responsiva**: Design moderno e otimizado para todos os dispositivos
-- **Sistema de Autenticação**: Páginas de login e registro com formulários completos
-- **Categorias de Eventos**: Formatura, Festa, Viagem, Gincana, Cultural, Acadêmico
-- **Exibição de Eventos**: Cards com informações detalhadas dos eventos
-- **Interface Moderna**: Componentes do shadcn/ui para uma experiência consistente
-- **Páginas Informativas**: Sobre, Como Funciona, Preços e Contato
+### 🏠 **Páginas Principais**
+- **Landing Page** - Apresentação da plataforma com seções interativas
+- **Página de Busca** - Sistema de busca avançada com filtros
+- **Páginas Informativas** - Sobre, Como Funciona, Preços, Contato
+- **Sistema de Autenticação** - Login e Registro com validação
+- **Páginas de Eventos** - Detalhes, inscrição e checkout
 
-## 🚀 Tecnologias Utilizadas
+### 🎯 **Funcionalidades de Eventos**
+- **Visualização de Eventos** - Cards com informações completas
+- **Detalhes do Evento** - Página completa com programação e avaliações
+- **Sistema de Inscrição** - Formulário completo de dados
+- **Checkout** - Pagamento via PIX e cartão de crédito
+- **Modais Interativos** - Mapa e contato em modais
 
-- **Next.js 15** - Framework React com App Router
+### 🎨 **Interface e UX**
+- **Dark Mode Completo** - Suporte total a tema escuro/claro
+- **Design Responsivo** - Funciona perfeitamente em todos os dispositivos
+- **Componentes Modernos** - Interface limpa e profissional
+- **Animações Suaves** - Transições e hover effects
+
+### 🔍 **Sistema de Busca**
+- **Busca por Texto** - Nome, descrição e tags
+- **Filtros Avançados** - Categoria, localização, preço
+- **Ordenação** - Por relevância, data, preço, avaliação
+- **Resultados em Tempo Real** - Atualização dinâmica
+
+## 🛠️ Tecnologias Utilizadas
+
+- **Next.js 14** - Framework React com App Router
 - **TypeScript** - Tipagem estática
 - **Tailwind CSS** - Framework CSS utilitário
-- **shadcn/ui** - Componentes React reutilizáveis
-- **Lucide React** - Ícones modernos
+- **shadcn/ui** - Componentes React modernos
+- **next-themes** - Gerenciamento de temas
+- **Lucide React** - Ícones
 - **React Hook Form** - Gerenciamento de formulários
 
 ## 📁 Estrutura do Projeto
 
 ```
 src/
-├── app/
-│   ├── login/
-│   │   └── page.tsx          # Página de login
-│   ├── registro/
-│   │   └── page.tsx          # Página de registro
-│   ├── sobre/
-│   │   └── page.tsx          # Página sobre a empresa
-│   ├── como-funciona/
-│   │   └── page.tsx          # Página explicativa
-│   ├── precos/
-│   │   └── page.tsx          # Página de planos e preços
-│   ├── contato/
-│   │   └── page.tsx          # Página de contato
-│   ├── layout.tsx            # Layout principal
-│   ├── page.tsx              # Landing page
-│   └── globals.css           # Estilos globais
-├── components/
-│   ├── ui/                   # Componentes shadcn/ui
-│   ├── Header.tsx            # Cabeçalho com navegação
-│   ├── Hero.tsx              # Seção principal
-│   ├── EventCategoryCard.tsx # Categorias de eventos
-│   ├── LatestEvents.tsx      # Últimos eventos
-│   ├── FinalCTA.tsx          # Call-to-action final
-│   └── Footer.tsx            # Rodapé
-└── lib/                      # Utilitários e configurações
+├── app/                    # App Router (Next.js 14)
+│   ├── (auth)/            # Páginas de autenticação
+│   ├── busca/             # Página de busca
+│   ├── categoria/         # Páginas de categoria
+│   ├── evento/            # Páginas de evento
+│   ├── globals.css        # Estilos globais
+│   └── layout.tsx         # Layout principal
+├── components/            # Componentes React
+│   ├── ui/               # Componentes shadcn/ui
+│   ├── Header.tsx        # Cabeçalho da aplicação
+│   ├── Footer.tsx        # Rodapé
+│   ├── Hero.tsx          # Seção hero
+│   ├── EventCategories.tsx # Categorias de eventos
+│   ├── LatestEvents.tsx  # Eventos em destaque
+│   ├── FinalCTA.tsx      # Call to action final
+│   ├── ThemeToggle.tsx   # Toggle de tema
+│   ├── ThemeProvider.tsx # Provider de tema
+│   ├── MapModal.tsx      # Modal do mapa
+│   └── ContactModal.tsx  # Modal de contato
+└── lib/                  # Utilitários e configurações
 ```
 
-## 🛠️ Instalação e Execução
+## 🚀 Como Executar
 
 1. **Clone o repositório**
    ```bash
@@ -70,103 +85,89 @@ src/
    ```
 
 4. **Acesse a aplicação**
-   Abra [http://localhost:3000](http://localhost:3000) no seu navegador.
+   ```
+   http://localhost:3000
+   ```
 
 ## 📱 Páginas Disponíveis
 
-- **/** - Landing page principal
-- **/login** - Página de login
-- **/registro** - Página de registro
-- **/sobre** - Sobre a empresa e equipe
-- **/como-funciona** - Como usar a plataforma
-- **/precos** - Planos e preços
-- **/contato** - Formulário de contato
+### 🏠 **Páginas Principais**
+- `/` - Landing page
+- `/busca` - Sistema de busca
+- `/sobre` - Sobre a empresa
+- `/como-funciona` - Como usar a plataforma
+- `/precos` - Planos e preços
+- `/contato` - Informações de contato
 
-## 🎨 Componentes Principais
+### 🔐 **Autenticação**
+- `/login` - Página de login
+- `/registro` - Página de registro
 
-### Header
-- Menu de navegação responsivo
-- Barra de pesquisa
-- Botões de login/registro
-- Menu mobile com hambúrguer
+### 🎉 **Eventos**
+- `/evento/[id]` - Detalhes do evento
+- `/evento/[id]/inscrever` - Formulário de inscrição
+- `/evento/[id]/checkout` - Página de pagamento
+- `/categoria/[id]` - Lista de eventos por categoria
 
-### Hero
-- Título impactante
-- Descrição da plataforma
-- Botões de call-to-action
-- Ilustração interativa
+## 🎨 Dark Mode
 
-### EventCategories
-- Grid de categorias de eventos
-- Ícones e cores diferenciadas
-- Hover effects
+A aplicação possui suporte completo ao dark mode:
 
-### LatestEvents
-- Cards de eventos com informações
-- Status visual (ativo, finalizado, cancelado)
-- Botões de ação
+- **Toggle Automático** - Detecta preferência do sistema
+- **Controle Manual** - Botão para alternar temas
+- **Persistência** - Lembra a escolha do usuário
+- **Transições Suaves** - Mudanças sem flicker
 
-### FinalCTA
-- Seção de conversão final
-- Gradiente azul
-- Botões destacados
+## 🔍 Sistema de Busca
 
-## 📄 Páginas Criadas
+### **Funcionalidades**
+- Busca por texto em tempo real
+- Filtros por categoria, localização e preço
+- Ordenação por relevância, data, preço, avaliação
+- Resultados paginados
+- Histórico de buscas
 
-### Login (/login)
-- Formulário de autenticação
-- Opção de login com GitHub
-- Link para recuperação de senha
-- Design responsivo
+### **Filtros Disponíveis**
+- **Categoria**: Formatura, Festa, Palestra, Workshop, etc.
+- **Localização**: Todos os locais disponíveis
+- **Faixa de Preço**: Gratuito, Até R$ 50, R$ 50-100, Acima de R$ 100
 
-### Registro (/registro)
-- Formulário completo de cadastro
-- Campos para dados universitários
-- Validação de formulário
-- Termos de uso e política
+## 💳 Sistema de Pagamento
 
-### Sobre (/sobre)
-- História da empresa
-- Missão e valores
-- Estatísticas impressionantes
-- Equipe e perfis
-- Avaliações de usuários
+### **Métodos Disponíveis**
+- **PIX** - Pagamento instantâneo
+- **Cartão de Crédito** - Processamento seguro
 
-### Como Funciona (/como-funciona)
-- Processo em 4 passos
-- Demonstração visual
-- Recursos da plataforma
-- Call-to-action
+### **Funcionalidades**
+- Formulário de dados pessoais
+- Validação completa
+- Confirmação de pagamento
+- E-mail de confirmação
 
-### Preços (/precos)
-- 3 planos: Gratuito, Pro, Enterprise
-- Comparativo de funcionalidades
-- FAQ sobre preços
-- Seção de contato
+## 📞 Modais Interativos
 
-### Contato (/contato)
+### **Modal do Mapa**
+- Localização do evento
+- Informações de acesso
+- Contato do organizador
+- Instruções de como chegar
+
+### **Modal de Contato**
+- Informações do organizador
 - Formulário de contato
-- Informações da empresa
-- Links para FAQ
-- Localização
+- FAQ rápido
+- Horário de atendimento
 
-## 🔧 Scripts Disponíveis
+## 🎯 Próximas Funcionalidades
 
-- `npm run dev` - Executa o servidor de desenvolvimento
-- `npm run build` - Gera a build de produção
-- `npm run start` - Executa a aplicação em produção
-- `npm run lint` - Executa o linter
-
-## 📝 Próximos Passos
-
-- [ ] Implementar autenticação real
-- [ ] Adicionar dashboard de usuário
-- [ ] Criar sistema de criação de eventos
-- [ ] Implementar busca de eventos
-- [ ] Adicionar sistema de pagamentos
-- [ ] Integrar com banco de dados
-- [ ] Implementar sistema de notificações
-- [ ] Adicionar analytics e relatórios
+- [ ] Dashboard do usuário
+- [ ] Sistema de notificações
+- [ ] Chat em tempo real
+- [ ] Upload de imagens
+- [ ] Sistema de avaliações
+- [ ] Integração com APIs de pagamento
+- [ ] Sistema de cupons
+- [ ] Relatórios e analytics
 
 ## 🤝 Contribuição
 
@@ -178,12 +179,13 @@ src/
 
 ## 📄 Licença
 
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
 
 ## 📞 Contato
 
-- Email: contato@eventosuni.com
-- Website: [eventosuni.com](https://eventosuni.com)
+- **Email**: contato@eventosuni.com
+- **Telefone**: (11) 99999-9999
+- **Website**: https://eventosuni.com
 
 ---
 

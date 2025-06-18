@@ -14,12 +14,23 @@ import { Search, Menu, X } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import Link from "next/link"
 import { useState } from "react"
+import { ThemeToggle } from "@/components/ThemeToggle"
+import { useRouter } from "next/navigation"
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [searchTerm, setSearchTerm] = useState("")
+  const router = useRouter()
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (searchTerm.trim()) {
+      router.push(`/busca?q=${encodeURIComponent(searchTerm.trim())}`)
+    }
+  }
 
   return (
-    <header className="border-b bg-white sticky top-0 z-50">
+    <header className="border-b bg-background sticky top-0 z-50">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
@@ -72,14 +83,17 @@ export function Header() {
 
           {/* Desktop Search and Auth */}
           <div className="hidden md:flex items-center space-x-4">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+            <form onSubmit={handleSearch} className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
               <Input
                 placeholder="Buscar eventos..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
                 className="pl-10 w-64"
               />
-            </div>
-            <Button variant="outline" size="sm">Buscar</Button>
+            </form>
+            <Button variant="outline" size="sm" onClick={handleSearch}>Buscar</Button>
+            <ThemeToggle />
             <Link href="/login">
               <Button variant="ghost" size="sm">Entrar</Button>
             </Link>
@@ -89,16 +103,18 @@ export function Header() {
           </div>
 
           {/* Mobile Menu Button */}
-          <button
-            className="md:hidden"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? (
-              <X className="h-6 w-6" />
-            ) : (
-              <Menu className="h-6 w-6" />
-            )}
-          </button>
+          <div className="md:hidden flex items-center space-x-2">
+            <ThemeToggle />
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Menu */}
@@ -106,14 +122,16 @@ export function Header() {
           <div className="md:hidden mt-4 pb-4 border-t pt-4">
             <div className="space-y-4">
               {/* Mobile Search */}
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+              <form onSubmit={handleSearch} className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
                 <Input
                   placeholder="Buscar eventos..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
                   className="pl-10"
                 />
-              </div>
-              <Button variant="outline" size="sm" className="w-full">Buscar</Button>
+              </form>
+              <Button variant="outline" size="sm" className="w-full" onClick={handleSearch}>Buscar</Button>
               
               {/* Mobile Navigation */}
               <nav className="space-y-2">
