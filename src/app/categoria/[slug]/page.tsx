@@ -6,14 +6,14 @@ import { Input } from "@/components/ui/input"
 import { Search, Filter, Calendar, MapPin, Users, ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import { categoryData } from "@/data/mock"
-export const dynamic = 'force-static'
+import type { Metadata } from 'next'
 
-interface PageProps {
+type PageParams = {
   params: { slug: string }
   searchParams?: { [key: string]: string | string[] | undefined }
 }
 
-export default function CategoryPage({ params }: PageProps) {
+export default function CategoryPage({ params }: PageParams) {
 
   const category = categoryData[params.slug as keyof typeof categoryData]
 
@@ -172,3 +172,8 @@ export default function CategoryPage({ params }: PageProps) {
     </div>
   )
 } 
+
+
+export const dynamic = 'auto'
+export const dynamicParams = true
+export const revalidate = false
