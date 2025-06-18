@@ -7,7 +7,6 @@ import { Badge } from "@/components/ui/badge"
 import { Calendar, Users, DollarSign, TrendingUp, Plus, Edit, Trash2, Eye } from "lucide-react"
 import Link from "next/link"
 
-// Dados mockados
 const mockEvents = [
   {
     id: "formatura-eng-2024",
@@ -82,6 +81,8 @@ export default function DashboardPage() {
     ? mockEvents 
     : mockEvents.filter(event => event.status === selectedStatus)
 
+
+
   return (
     <div className="space-y-8">
       {/* Estatísticas */}
@@ -105,7 +106,6 @@ export default function DashboardPage() {
           </Card>
         ))}
       </div>
-
       {/* Eventos */}
       <div className="space-y-6">
         <div className="flex items-center justify-between">

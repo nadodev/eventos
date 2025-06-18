@@ -11,6 +11,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Separator } from "@/components/ui/separator"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
+import { Header } from "@/components/Header"
 
 // Dados mockados para demonstração
 const mockEvents = [
@@ -201,6 +202,7 @@ export default function BuscaPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <Header />
       {/* Header da Busca */}
       <div className="bg-gradient-to-r from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 py-12">
         <div className="container mx-auto px-4">

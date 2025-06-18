@@ -6,8 +6,9 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Calendar, Users, DollarSign, Edit, Trash2, Eye, Plus, Search, Filter } from "lucide-react"
+import { Calendar, Users, DollarSign, Edit, Trash2, Eye, Plus, Search, Filter, ChevronLeft, ChevronRight } from "lucide-react"
 import Link from "next/link"
+import { Pagination } from "@/components/pagination"
 
 // Dados mockados
 const mockEvents = [
@@ -84,29 +85,43 @@ export default function EventosPage() {
 
   const filteredEvents = mockEvents.filter(event => {
     const matchesSearch = event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         event.description.toLowerCase().includes(searchTerm.toLowerCase())
+      event.description.toLowerCase().includes(searchTerm.toLowerCase())
     const matchesCategory = selectedCategory === "Todos" || event.category === selectedCategory
     const matchesStatus = selectedStatus === "Todos" || event.status === selectedStatus
-    
+
     return matchesSearch && matchesCategory && matchesStatus
   })
 
   const sortedEvents = [...filteredEvents].sort((a, b) => {
     switch (sortBy) {
       case "date":
-        return new Date(a.date.split('/').reverse().join('-')).getTime() - 
-               new Date(b.date.split('/').reverse().join('-')).getTime()
+        return new Date(a.date.split('/').reverse().join('-')).getTime() -
+          new Date(b.date.split('/').reverse().join('-')).getTime()
       case "title":
         return a.title.localeCompare(b.title)
       case "attendees":
         return b.attendees - a.attendees
       case "revenue":
-        return parseFloat(b.revenue.replace('R$ ', '').replace('.', '')) - 
-               parseFloat(a.revenue.replace('R$ ', '').replace('.', ''))
+        return parseFloat(b.revenue.replace('R$ ', '').replace('.', '')) -
+          parseFloat(a.revenue.replace('R$ ', '').replace('.', ''))
       default:
         return 0
     }
   })
+
+  const [currentPage, setCurrentPage] = useState(1)
+  const eventsPerPage = 3
+
+  // Paginação
+  const totalPages = Math.ceil(filteredEvents.length / eventsPerPage)
+  const startIndex = (currentPage - 1) * eventsPerPage
+  const endIndex = startIndex + eventsPerPage
+  const currentEvents = filteredEvents.slice(startIndex, endIndex)
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   return (
     <div className="space-y-6">
@@ -137,7 +152,7 @@ export default function EventosPage() {
                 className="pl-10"
               />
             </div>
-            
+
             <Select value={selectedCategory} onValueChange={setSelectedCategory}>
               <SelectTrigger>
                 <SelectValue placeholder="Categoria" />
@@ -181,17 +196,17 @@ export default function EventosPage() {
 
       {/* Lista de Eventos */}
       <div className="grid gap-6">
-        {sortedEvents.map((event) => (
+        {currentEvents.map((event) => (
           <Card key={event.id} className="bg-card border-border">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/20 rounded-lg flex items-center justify-center">
                     <span className="text-xl">
-                      {event.category === "Formatura" ? "🎓" : 
-                       event.category === "Tecnologia" ? "💻" : 
-                       event.category === "Festa" ? "🎉" :
-                       event.category === "Palestra" ? "🎤" : "🔧"}
+                      {event.category === "Formatura" ? "🎓" :
+                        event.category === "Tecnologia" ? "💻" :
+                          event.category === "Festa" ? "🎉" :
+                            event.category === "Palestra" ? "🎤" : "🔧"}
                     </span>
                   </div>
                   <div>
@@ -199,9 +214,9 @@ export default function EventosPage() {
                     <p className="text-sm text-muted-foreground mt-1">{event.description}</p>
                     <div className="flex items-center space-x-2 mt-2">
                       <Badge variant="outline">{event.category}</Badge>
-                      <Badge 
-                        variant={event.status === "Ativo" ? "default" : 
-                                event.status === "Rascunho" ? "secondary" : "outline"}
+                      <Badge
+                        variant={event.status === "Ativo" ? "default" :
+                          event.status === "Rascunho" ? "secondary" : "outline"}
                       >
                         {event.status}
                       </Badge>
@@ -250,7 +265,6 @@ export default function EventosPage() {
           </Card>
         ))}
       </div>
-
       {sortedEvents.length === 0 && (
         <Card className="bg-card border-border">
           <CardContent className="p-12 text-center">
@@ -270,7 +284,8 @@ export default function EventosPage() {
           </CardContent>
         </Card>
       )}
-
+      {/* Paginação */}
+      <Pagination totalPages={totalPages} currentPage={currentPage} handlePageChange={handlePageChange} />
       {/* Estatísticas */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card className="bg-card border-border">
@@ -312,7 +327,7 @@ export default function EventosPage() {
               <div>
                 <p className="text-sm text-muted-foreground">Receita Total</p>
                 <p className="text-2xl font-bold text-foreground">
-                  R$ {mockEvents.reduce((sum, event) => 
+                  R$ {mockEvents.reduce((sum, event) =>
                     sum + parseFloat(event.revenue.replace('R$ ', '').replace('.', '')), 0
                   ).toLocaleString()}
                 </p>

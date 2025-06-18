@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Check, Star } from "lucide-react"
 import Link from "next/link"
+import { CallAction } from "@/components/CallAction"
 
 export default function PrecosPage() {
   const plans = [
@@ -187,30 +188,8 @@ export default function PrecosPage() {
         </div>
       </div>
 
-      {/* CTA Section */}
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-16">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-4">
-            Ainda tem dúvidas?
-          </h2>
-          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            Nossa equipe está pronta para ajudar você a escolher o plano ideal 
-            para suas necessidades.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/contato">
-              <Button size="lg" variant="secondary" className="text-lg px-8">
-                Falar com especialista
-              </Button>
-            </Link>
-            <Link href="/registro">
-              <Button size="lg" variant="outline" className="text-lg px-8 border-white text-white hover:bg-white hover:text-blue-600">
-                Começar grátis
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </div>
+       {/* CTA Section */}
+       <CallAction />
     </div>
   )
 } 

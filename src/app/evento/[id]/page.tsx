@@ -19,7 +19,6 @@ import {
 } from "@/components/ui/dialog"
 import { toast } from "sonner"
 
-// Dados mockados do evento
 const eventData = {
   id: "formatura-eng-2024",
   title: "Formatura Engenharia 2024",
@@ -99,7 +98,6 @@ const eventData = {
   ]
 }
 
-// Tipos para as funções de compartilhamento
 type ShareMethod = 'clipboard' | 'whatsapp' | 'twitter' | 'facebook' | 'linkedin'
 
 export default function EventoPage() {
@@ -108,7 +106,6 @@ export default function EventoPage() {
   const [isFavorited, setIsFavorited] = useState(false)
   const [isShareOpen, setIsShareOpen] = useState(false)
 
-  // Carregar estado dos favoritos do localStorage
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const favorites = JSON.parse(localStorage.getItem('eventFavorites') || '[]')
@@ -116,7 +113,6 @@ export default function EventoPage() {
     }
   }, [])
 
-  // Função para alternar favorito
   const toggleFavorite = () => {
     const favorites = JSON.parse(localStorage.getItem('eventFavorites') || '[]')
     let newFavorites
@@ -133,7 +129,6 @@ export default function EventoPage() {
     setIsFavorited(!isFavorited)
   }
 
-  // Função para compartilhar
   const handleShare = async (method: ShareMethod) => {
     const eventUrl = `${window.location.origin}/evento/${eventData.id}`
     
@@ -332,7 +327,7 @@ export default function EventoPage() {
                   
                   <div className="space-y-3">
                     <Link href={`/evento/${eventData.id}/inscrever`}>
-                      <Button className="w-full" size="lg">
+                      <Button className="w-full mb-4" size="lg">
                         Inscrever-se Agora
                       </Button>
                     </Link>

@@ -9,7 +9,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Separator } from "@/components/ui/separator"
-import { ArrowLeft, Save, Eye, Calendar, MapPin, Users, DollarSign, Clock } from "lucide-react"
+import { ArrowLeft, Save, Eye, Calendar, MapPin, Users, DollarSign, Clock, X } from "lucide-react"
 import Link from "next/link"
 
 const categories = [
@@ -71,6 +71,7 @@ export default function NovoEventoPage() {
 
   const [currentStep, setCurrentStep] = useState(1)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [showPreview, setShowPreview] = useState(false)
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -129,6 +130,14 @@ export default function NovoEventoPage() {
     }, 2000)
   }
 
+  const handlePreview = () => {
+    setShowPreview(true)
+  }
+
+  const closePreview = () => {
+    setShowPreview(false)
+  }
+
   const steps = [
     { id: 1, title: "Informações Básicas", icon: "📝" },
     { id: 2, title: "Data e Local", icon: "📍" },
@@ -153,7 +162,7 @@ export default function NovoEventoPage() {
               </div>
             </div>
             <div className="flex space-x-2">
-              <Button variant="outline">
+              <Button variant="outline" onClick={handlePreview}>
                 <Eye className="w-4 h-4 mr-2" />
                 Visualizar
               </Button>
@@ -165,6 +174,180 @@ export default function NovoEventoPage() {
           </div>
         </div>
       </div>
+
+      {/* Modal de Prévia */}
+      {showPreview && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-background rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between p-6 border-b">
+              <h2 className="text-2xl font-bold text-foreground">Prévia do Evento</h2>
+              <Button variant="ghost" size="sm" onClick={closePreview}>
+                <X className="w-5 h-5" />
+              </Button>
+            </div>
+            
+            <div className="p-6">
+              {/* Card do Evento */}
+              <Card className="mb-6">
+                <div className="aspect-video bg-gradient-to-br from-primary/10 to-primary/5 rounded-t-lg flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="text-6xl mb-4">
+                      {categories.find(cat => cat.id === formData.category)?.icon || "🎉"}
+                    </div>
+                    <p className="text-muted-foreground">Imagem do evento</p>
+                  </div>
+                </div>
+                <CardContent className="p-6">
+                  <div className="flex items-start justify-between mb-4">
+                    <div>
+                      <h1 className="text-2xl font-bold text-foreground mb-2">
+                        {formData.title || "Título do Evento"}
+                      </h1>
+                      <div className="flex items-center space-x-2 text-muted-foreground mb-2">
+                        <span className="text-sm">
+                          {categories.find(cat => cat.id === formData.category)?.name || "Categoria"}
+                        </span>
+                        <span>•</span>
+                        <span className="text-sm">Organizado por {formData.organizerName || "Organizador"}</span>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-2xl font-bold text-primary">
+                        {formData.isFree ? "Gratuito" : formData.price || "R$ 0,00"}
+                      </div>
+                      <div className="text-sm text-muted-foreground">
+                        {formData.maxAttendees || "0"} vagas disponíveis
+                      </div>
+                    </div>
+                  </div>
+
+                  <p className="text-foreground mb-6">
+                    {formData.description || "Descrição do evento aparecerá aqui..."}
+                  </p>
+
+                  {/* Informações do Evento */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div className="flex items-center space-x-3">
+                      <Calendar className="w-5 h-5 text-muted-foreground" />
+                      <div>
+                        <p className="font-medium text-foreground">
+                          {formData.date ? new Date(formData.date).toLocaleDateString('pt-BR') : "Data não definida"}
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          {formData.time || "Horário não definido"}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center space-x-3">
+                      <MapPin className="w-5 h-5 text-muted-foreground" />
+                      <div>
+                        <p className="font-medium text-foreground">
+                          {formData.location || "Local não definido"}
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          {formData.address || "Endereço não informado"}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center space-x-3">
+                      <Users className="w-5 h-5 text-muted-foreground" />
+                      <div>
+                        <p className="font-medium text-foreground">
+                          Capacidade máxima
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          {formData.maxAttendees || "0"} participantes
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center space-x-3">
+                      <DollarSign className="w-5 h-5 text-muted-foreground" />
+                      <div>
+                        <p className="font-medium text-foreground">
+                          Preço
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          {formData.isFree ? "Evento gratuito" : formData.price || "Preço não definido"}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Descrição Detalhada */}
+                  {formData.longDescription && (
+                    <div className="mb-6">
+                      <h3 className="font-semibold text-foreground mb-2">Sobre o Evento</h3>
+                      <p className="text-foreground whitespace-pre-wrap">
+                        {formData.longDescription}
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Programação */}
+                  {formData.schedule.length > 0 && formData.schedule[0].time && (
+                    <div className="mb-6">
+                      <h3 className="font-semibold text-foreground mb-4 flex items-center">
+                        <Clock className="w-5 h-5 mr-2" />
+                        Programação
+                      </h3>
+                      <div className="space-y-3">
+                        {formData.schedule.map((item, index) => (
+                          <div key={index} className="flex items-center space-x-4 p-3 bg-muted/50 rounded-lg">
+                            <div className="font-medium text-primary min-w-[60px]">
+                              {item.time}
+                            </div>
+                            <div className="text-foreground">
+                              {item.activity}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Botões de Ação */}
+                  <div className="flex space-x-3">
+                    <Button className="flex-1" size="lg">
+                      Inscrever-se
+                    </Button>
+                    <Button variant="outline" size="lg">
+                      Compartilhar
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Informações Adicionais */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-foreground">Informações do Organizador</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-2">
+                    <p><strong>Nome:</strong> {formData.organizerName || "Não informado"}</p>
+                    <p><strong>Email:</strong> {formData.organizerEmail || "Não informado"}</p>
+                    <p><strong>Telefone:</strong> {formData.organizerPhone || "Não informado"}</p>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-foreground">Configurações</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-2">
+                    <p><strong>Status:</strong> {formData.status}</p>
+                    <p><strong>Lista de espera:</strong> {formData.allowWaitlist ? "Permitida" : "Não permitida"}</p>
+                    <p><strong>Aprovação manual:</strong> {formData.requireApproval ? "Requerida" : "Automática"}</p>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">

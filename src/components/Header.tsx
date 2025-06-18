@@ -3,11 +3,9 @@
 import { Button } from "@/components/ui/button"
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 import { Search, Menu, X, Settings, User } from "lucide-react"

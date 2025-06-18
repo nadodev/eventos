@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Mail, Phone, MapPin, Clock, MessageSquare, Send } from "lucide-react"
+import { CallAction } from "@/components/CallAction"
 
 export default function ContatoPage() {
   const [formData, setFormData] = useState({
@@ -241,26 +242,10 @@ export default function ContatoPage() {
         </div>
       </div>
 
-      {/* CTA Section */}
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-16">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-4">
-            Pronto para começar?
-          </h2>
-          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            Não perca mais tempo com planilhas e processos complicados. 
-            Comece a organizar seus eventos de forma profissional hoje mesmo.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="secondary" className="text-lg px-8">
-              Criar conta grátis
-            </Button>
-            <Button size="lg" variant="outline" className="text-lg px-8 border-white text-white hover:bg-white hover:text-blue-600">
-              Agendar demonstração
-            </Button>
-          </div>
-        </div>
-      </div>
+       {/* CTA Section */}
+       <CallAction
+       
+       />
     </div>
   )
 } 

@@ -4,7 +4,6 @@ import { useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Calendar, MapPin, Users, DollarSign, Search, Filter, Star, Clock, Eye, ChevronLeft, ChevronRight, Heart, Share2 } from "lucide-react"
@@ -18,8 +17,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { toast } from "sonner"
+import { Pagination } from "@/components/pagination"
 
-// Dados mockados
 const mockEvents = [
   {
     id: "formatura-eng-2024",
@@ -168,7 +167,7 @@ export default function EventosPage() {
   const [selectedDateRange, setSelectedDateRange] = useState("Todos")
   const [sortBy, setSortBy] = useState("date")
   const [currentPage, setCurrentPage] = useState(1)
-  const eventsPerPage = 10
+  const eventsPerPage = 2
 
   const filteredEvents = mockEvents.filter(event => {
     const matchesSearch = event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -345,39 +344,7 @@ export default function EventosPage() {
               </div>
 
               {/* Paginação */}
-              {totalPages > 1 && (
-                <div className="flex items-center justify-center space-x-2 mt-8">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => handlePageChange(currentPage - 1)}
-                    disabled={currentPage === 1}
-                  >
-                    <ChevronLeft className="w-4 h-4" />
-                  </Button>
-                  
-                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                    <Button
-                      key={page}
-                      variant={currentPage === page ? "default" : "outline"}
-                      size="sm"
-                      onClick={() => handlePageChange(page)}
-                      className="w-8 h-8 p-0"
-                    >
-                      {page}
-                    </Button>
-                  ))}
-                  
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => handlePageChange(currentPage + 1)}
-                    disabled={currentPage === totalPages}
-                  >
-                    <ChevronRight className="w-4 h-4" />
-                  </Button>
-                </div>
-              )}
+              <Pagination totalPages={totalPages} currentPage={currentPage} handlePageChange={handlePageChange} />
             </>
           ) : (
             <Card className="bg-card border-border">

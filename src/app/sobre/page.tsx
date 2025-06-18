@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Users, Target, Heart, Award, Globe, Zap, Shield, Star } from "lucide-react"
 import Link from "next/link"
+import { CallAction } from "@/components/CallAction"
 
 export default function SobrePage() {
   const stats = [
@@ -87,7 +88,7 @@ export default function SobrePage() {
             Sobre a EventosUni
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Somos uma startup brasileira dedicada a simplificar a organização de eventos universitários, 
+            Somos uma startup brasileira dedicada a simplificar a organização de eventos universitários,
             conectando estudantes e facilitando a vida acadêmica.
           </p>
         </div>
@@ -101,8 +102,8 @@ export default function SobrePage() {
               Nossa Missão
             </h2>
             <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-              Transformar a forma como eventos universitários são organizados, proporcionando 
-              uma experiência simples, eficiente e acessível para todos os estudantes. 
+              Transformar a forma como eventos universitários são organizados, proporcionando
+              uma experiência simples, eficiente e acessível para todos os estudantes.
               Queremos que você foque no que realmente importa: criar momentos inesquecíveis.
             </p>
             <div className="bg-blue-50 rounded-2xl p-8">
@@ -183,7 +184,7 @@ export default function SobrePage() {
               Conheça nossa equipe
             </h2>
             <p className="text-xl text-muted-foreground text-center mb-12 max-w-3xl mx-auto">
-              Somos uma equipe apaixonada por educação e tecnologia, 
+              Somos uma equipe apaixonada por educação e tecnologia,
               trabalhando para tornar a vida universitária mais fácil.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -217,21 +218,21 @@ export default function SobrePage() {
                 </h2>
                 <div className="space-y-4 text-muted-foreground">
                   <p>
-                    Tudo começou em 2022, quando Ana Silva, então estudante de Engenharia, 
-                    enfrentou o desafio de organizar a formatura da sua turma. 
+                    Tudo começou em 2022, quando Ana Silva, então estudante de Engenharia,
+                    enfrentou o desafio de organizar a formatura da sua turma.
                     O processo era tão complicado e burocrático que ela decidiu criar uma solução.
                   </p>
                   <p>
-                    Junto com amigos desenvolvedores, ela criou a primeira versão da EventosUni 
-                    como um projeto universitário. O sucesso foi tão grande que decidiram 
+                    Junto com amigos desenvolvedores, ela criou a primeira versão da EventosUni
+                    como um projeto universitário. O sucesso foi tão grande que decidiram
                     transformar em uma empresa real.
                   </p>
                   <p>
-                    Hoje, somos uma equipe de 15 pessoas apaixonadas, atendendo mais de 
+                    Hoje, somos uma equipe de 15 pessoas apaixonadas, atendendo mais de
                     50.000 estudantes em todo o Brasil.
                   </p>
                 </div>
-                
+
                 <div className="flex items-center space-x-4">
                   <div className="flex items-center space-x-1">
                     <Star className="w-5 h-5 text-yellow-500 fill-current" />
@@ -245,7 +246,7 @@ export default function SobrePage() {
                   </span>
                 </div>
               </div>
-              
+
               <div className="relative">
                 <div className="bg-white rounded-2xl shadow-2xl p-8 transform -rotate-2 hover:rotate-0 transition-transform duration-300">
                   <div className="space-y-4">
@@ -274,7 +275,7 @@ export default function SobrePage() {
                     </div>
                   </div>
                 </div>
-                
+
                 {/* Floating elements */}
                 <div className="absolute -top-4 -right-4 bg-green-100 p-3 rounded-full">
                   <span className="text-xl">🚀</span>
@@ -288,30 +289,8 @@ export default function SobrePage() {
         </div>
       </div>
 
-      {/* CTA Section */}
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-16">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-4">
-            Faça parte da nossa história
-          </h2>
-          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            Junte-se a milhares de estudantes que já transformaram a organização 
-            de eventos universitários com nossa plataforma.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/registro">
-              <Button size="lg" variant="secondary" className="text-lg px-8">
-                Começar agora
-              </Button>
-            </Link>
-            <Link href="/contato">
-              <Button size="lg" variant="outline" className="text-lg px-8 border-white text-white hover:bg-white hover:text-blue-600">
-                Falar conosco
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </div>
+      {/* CTA Section */} 
+      <CallAction />
     </div>
   )
 } 

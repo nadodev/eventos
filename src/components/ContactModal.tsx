@@ -39,7 +39,6 @@ export function ContactModal({ isOpen, onClose, organizer }: ContactModalProps) 
     e.preventDefault()
     setIsSubmitting(true)
     
-    // Simular envio
     setTimeout(() => {
       setIsSubmitting(false)
       setFormData({ name: "", email: "", subject: "", message: "" })
@@ -54,7 +53,7 @@ export function ContactModal({ isOpen, onClose, organizer }: ContactModalProps) 
           <DialogTitle className="text-foreground">Entre em Contato</DialogTitle>
         </DialogHeader>
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="flex flex-col gap-6">
           {/* Informações de Contato */}
           <div className="space-y-6">
             <div>
@@ -95,25 +94,6 @@ export function ContactModal({ isOpen, onClose, organizer }: ContactModalProps) 
                       <p className="text-sm text-muted-foreground">Segunda a Sexta: 9h às 17h</p>
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-
-            {/* FAQ Rápido */}
-            <div>
-              <h4 className="font-semibold text-foreground mb-3">Perguntas Frequentes</h4>
-              <div className="space-y-2">
-                <div className="text-sm">
-                  <p className="font-medium text-foreground">Como cancelar minha inscrição?</p>
-                  <p className="text-muted-foreground">Entre em contato até 48h antes do evento.</p>
-                </div>
-                <div className="text-sm">
-                  <p className="font-medium text-foreground">Posso transferir minha inscrição?</p>
-                  <p className="text-muted-foreground">Sim, mediante solicitação por e-mail.</p>
-                </div>
-                <div className="text-sm">
-                  <p className="font-medium text-foreground">Há estacionamento no local?</p>
-                  <p className="text-muted-foreground">Sim, com vagas limitadas.</p>
                 </div>
               </div>
             </div>
