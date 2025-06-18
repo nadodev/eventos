@@ -10,7 +10,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
-import { Search, Menu, X, Settings } from "lucide-react"
+import { Search, Menu, X, Settings, User } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import Link from "next/link"
 import { useState } from "react"
@@ -44,64 +44,50 @@ export function Header() {
           <NavigationMenu className="hidden md:flex">
             <NavigationMenuList>
               <NavigationMenuItem>
-                <Link href="/" legacyBehavior passHref>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+                  <Link href="/">
                     Início
-                  </NavigationMenuLink>
-                </Link>
+                  </Link>
+                </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link href="/sobre" legacyBehavior passHref>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+                  <Link href="/sobre">
                     Sobre
-                  </NavigationMenuLink>
-                </Link>
+                  </Link>
+                </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link href="/como-funciona" legacyBehavior passHref>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+                  <Link href="/como-funciona">
                     Como Funciona
-                  </NavigationMenuLink>
-                </Link>
+                  </Link>
+                </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link href="/precos" legacyBehavior passHref>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+                  <Link href="/eventos">
+                    Eventos
+                  </Link>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+                  <Link href="/precos">
                     Preços
-                  </NavigationMenuLink>
-                </Link>
+                  </Link>
+                </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link href="/contato" legacyBehavior passHref>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+                  <Link href="/contato">
                     Contato
-                  </NavigationMenuLink>
-                </Link>
+                  </Link>
+                </NavigationMenuLink>
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-6">
-            <Link href="/" className="text-foreground hover:text-primary transition-colors">
-              Início
-            </Link>
-            <Link href="/eventos" className="text-foreground hover:text-primary transition-colors">
-              Eventos
-            </Link>
-            <Link href="/categorias" className="text-foreground hover:text-primary transition-colors">
-              Categorias
-            </Link>
-            <Link href="/precos" className="text-foreground hover:text-primary transition-colors">
-              Preços
-            </Link>
-            <Link href="/como-funciona" className="text-foreground hover:text-primary transition-colors">
-              Como Funciona
-            </Link>
-            <Link href="/sobre" className="text-foreground hover:text-primary transition-colors">
-              Sobre
-            </Link>
-          </div>
 
           {/* Desktop Search and Auth */}
           <div className="hidden md:flex items-center space-x-4">
@@ -120,6 +106,12 @@ export function Header() {
               <Button variant="outline" size="sm">
                 <Settings className="w-4 h-4 mr-2" />
                 Dashboard
+              </Button>
+            </Link>
+            <Link href="/perfil">
+              <Button variant="outline" size="sm">
+                <User className="w-4 h-4 mr-2" />
+                Perfil
               </Button>
             </Link>
             <Link href="/login">
@@ -186,6 +178,12 @@ export function Header() {
                   <Button variant="outline" size="sm" className="w-full">
                     <Settings className="w-4 h-4 mr-2" />
                     Dashboard
+                  </Button>
+                </Link>
+                <Link href="/perfil" className="block">
+                  <Button variant="outline" size="sm" className="w-full">
+                    <User className="w-4 h-4 mr-2" />
+                    Perfil
                   </Button>
                 </Link>
                 <Link href="/login" className="block">
