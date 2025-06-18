@@ -7,16 +7,15 @@ import { categoryData } from "@/data/mock"
 import { notFound } from "next/navigation"
 import { CategorySearch } from "@/components/CategorySearch"
 
-interface PageProps {
+export default async function Page({
+  params,
+}: {
   params: { slug: string }
-  searchParams: { [key: string]: string | string[] | undefined }
-}
-
-async function Page({ params, searchParams }: PageProps) {
+}) {
   const { slug } = params
 
   // Simula um carregamento assíncrono dos dados
-  const category = await Promise.resolve(categoryData[slug as keyof typeof categoryData])
+  const category = categoryData[slug as keyof typeof categoryData]
 
   if (!category) {
     notFound()
@@ -148,8 +147,6 @@ async function Page({ params, searchParams }: PageProps) {
     </div>
   )
 }
-
-export default Page
 
 // Gera as páginas estaticamente no momento da build
 export async function generateStaticParams() {
