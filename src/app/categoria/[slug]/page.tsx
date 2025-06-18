@@ -1,13 +1,11 @@
-"use client"
-
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
-import { Search, Filter, Calendar, MapPin, Users, ArrowLeft } from "lucide-react"
+import { Calendar, MapPin, Users, ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import { categoryData } from "@/data/mock"
 import { notFound } from "next/navigation"
+import { CategorySearch } from "@/components/CategorySearch"
 
 interface PageProps {
   params: { slug: string }
@@ -17,6 +15,7 @@ interface PageProps {
 async function Page({ params, searchParams }: PageProps) {
   const { slug } = params
 
+  // Simula um carregamento assíncrono dos dados
   const category = await Promise.resolve(categoryData[slug as keyof typeof categoryData])
 
   if (!category) {
@@ -48,19 +47,7 @@ async function Page({ params, searchParams }: PageProps) {
           </div>
 
           {/* Search and Filter */}
-          <div className="flex flex-col md:flex-row gap-4">
-            <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-              <Input
-                placeholder="Buscar eventos..."
-                className="pl-10"
-              />
-            </div>
-            <Button variant="outline">
-              <Filter className="w-4 h-4 mr-2" />
-              Filtrar
-            </Button>
-          </div>
+          <CategorySearch />
         </div>
       </div>
 
