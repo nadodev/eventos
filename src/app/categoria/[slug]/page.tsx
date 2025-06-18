@@ -6,13 +6,7 @@ import { Search, Filter, Calendar, MapPin, Users, ArrowLeft } from "lucide-react
 import Link from "next/link"
 import { categoryData } from "@/data/mock"
 
-interface PageProps {
-  params: {
-    slug: string;
-  };
-}
-
-export default function Page({ params }: PageProps) {
+export default function Page({ params }: { params: { slug: string } }) {
   const { slug } = params;
 
   const category = categoryData[slug as keyof typeof categoryData]
