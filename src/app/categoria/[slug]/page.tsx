@@ -5,15 +5,12 @@ import { Input } from "@/components/ui/input"
 import { Search, Filter, Calendar, MapPin, Users, ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import { categoryData } from "@/data/mock"
-import type { Metadata } from 'next'
 
-interface PageProps {
+export default function CategoryPage({
+  params,
+}: {
   params: { slug: string }
-  searchParams: { [key: string]: string | string[] | undefined }
-}
-
-export default function CategoryPage({ params }: PageProps) {
-
+}) {
   const category = categoryData[params.slug as keyof typeof categoryData]
 
   if (!category) {
