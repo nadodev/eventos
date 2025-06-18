@@ -5,12 +5,10 @@ import { Input } from "@/components/ui/input"
 import { Search, Filter, Calendar, MapPin, Users, ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import { categoryData } from "@/data/mock"
+export const dynamicParams = true
 
-export default function CategoryPage({
-  params,
-}: {
-  params: { slug: string }
-}) {
+export default function CategoryPage({ params }: { params: { slug: string } }) {
+
   const category = categoryData[params.slug as keyof typeof categoryData]
 
   if (!category) {
