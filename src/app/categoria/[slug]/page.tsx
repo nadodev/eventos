@@ -1,3 +1,4 @@
+'use client'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -7,11 +8,12 @@ import Link from "next/link"
 import { categoryData } from "@/data/mock"
 export const dynamic = 'force-static'
 
-export default function CategoryPage({
-  params,
-}: {
+interface PageProps {
   params: { slug: string }
-}) {
+  searchParams?: { [key: string]: string | string[] | undefined }
+}
+
+export default function CategoryPage({ params }: PageProps) {
 
   const category = categoryData[params.slug as keyof typeof categoryData]
 

@@ -43,7 +43,7 @@ export function Hero() {
   }
 
   return (
-    <section className="py-20 bg-gradient-to-br from-gray-500 to-gray-600 dark:from-gray-900 dark:to-zinc-800">
+    <section className="py-20 bg-gradient-to-br from-gray-700 to-gray-800 dark:from-gray-900 dark:to-zinc-800">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h1 className="text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
