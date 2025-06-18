@@ -11,20 +11,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Separator } from "@/components/ui/separator"
 import { Badge } from "@/components/ui/badge"
 import { 
-  Settings, 
   Save, 
   Bell, 
-  Mail, 
   Shield, 
   CreditCard, 
   Globe, 
-  Palette,
-  User,
   Building,
-  MapPin,
-  Phone,
-  Website,
-  AlertTriangle,
   CheckCircle
 } from "lucide-react"
 
