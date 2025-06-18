@@ -7,14 +7,14 @@ import { categoryData } from "@/data/mock"
 import { notFound } from "next/navigation"
 import { CategorySearch } from "@/components/CategorySearch"
 
-export default async function Page({
-  params,
-}: {
-  params: { slug: string }
-}) {
-  const { slug } = params
 
-  // Simula um carregamento assíncrono dos dados
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{ slug: string }>;
+}) {
+  const { slug } = await searchParams
+
   const category = categoryData[slug as keyof typeof categoryData]
 
   if (!category) {
