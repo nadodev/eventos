@@ -27,7 +27,6 @@ export default function Page({ params }: { params: { slug: string } }) {
       </div>
     )
   }
-
   const statusColors = {
     ativo: "bg-green-100 text-green-800",
     finalizado: "bg-gray-100 text-gray-800",
