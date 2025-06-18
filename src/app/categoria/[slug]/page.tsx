@@ -7,28 +7,30 @@ import { Input } from "@/components/ui/input"
 import { Search, Filter, Calendar, MapPin, Users, ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import { categoryData } from "@/data/mock"
+import { notFound } from "next/navigation"
 
-export default function Page({ params }: { params: { slug: string } }) {
+interface PageProps {
+  params: {
+    slug: string
+  }
+  searchParams?: { [key: string]: string | string[] | undefined }
+}
+
+export default async function Page({ params, searchParams }: PageProps) {
   const { slug } = params;
 
-  const category = categoryData[slug as keyof typeof categoryData]
+  // Simula um carregamento assíncrono dos dados
+  const getCategoryData = async (slug: string) => {
+    // Em produção, aqui você faria uma chamada à API ou banco de dados
+    return categoryData[slug as keyof typeof categoryData]
+  }
+
+  const category = await getCategoryData(slug)
 
   if (!category) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Categoria não encontrada</h1>
-          <p className="text-muted-foreground mb-8">A categoria que você está procurando não existe.</p>
-          <Link href="/">
-            <Button>
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Voltar ao início
-            </Button>
-          </Link>
-        </div>
-      </div>
-    )
+    notFound()
   }
+
   const statusColors = {
     ativo: "bg-green-100 text-green-800",
     finalizado: "bg-gray-100 text-gray-800",
@@ -166,9 +168,18 @@ export default function Page({ params }: { params: { slug: string } }) {
       </div>
     </div>
   )
-} 
+}
 
+// Gera as páginas estaticamente no momento da build
+export async function generateStaticParams() {
+  // Em produção, você buscaria isso de uma API ou banco de dados
+  const slugs = Object.keys(categoryData)
+  return slugs.map((slug) => ({
+    slug,
+  }))
+}
 
-export const dynamic = 'auto'
-export const dynamicParams = true
-export const revalidate = false
+// Configurações de geração estática
+export const dynamic = 'force-static'
+export const dynamicParams = false // Não permite slugs que não foram pré-renderizados
+export const revalidate = 3600 // Revalida a cada 1 hora
