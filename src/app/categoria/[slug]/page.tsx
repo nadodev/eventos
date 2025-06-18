@@ -7,12 +7,12 @@ import Link from "next/link"
 import { categoryData } from "@/data/mock"
 import type { Metadata } from 'next'
 
-type Props = {
+interface PageProps {
   params: { slug: string }
+  searchParams: { [key: string]: string | string[] | undefined }
 }
 
-export default function CategoryPage({ params }: Props) {
- 
+export default function CategoryPage({ params }: PageProps) {
 
   const category = categoryData[params.slug as keyof typeof categoryData]
 
